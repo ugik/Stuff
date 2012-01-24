@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
                       :small => "150x150>"
                     },
     :storage => :s3,
-    :s3_credentials => "#{Rails.root}/config/s3.yml",
+    :s3_credentials => S3_CREDENTIALS,
     :path => ":attachment/:id/:style.:extension",
     :bucket => 'ugik_images'
 
