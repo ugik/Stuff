@@ -1,14 +1,13 @@
 development:
-  access_key_id: abcdef
+  access_key_id: abcde
   secret_access_key: xyz
 
 test:
-  access_key_id: abcdef
+  access_key_id: abcde
   secret_access_key: xyz
 
 production:
-  access_key_id: abcdef
+  access_key_id: abcde
   secret_access_key: xyz
-
 
 
