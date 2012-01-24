@@ -5,7 +5,6 @@ class IncomingMailsController < ApplicationController
   def create
     stuff = StuffMailer.receive(Mail.new(params[:message]))
 
-
      if !stuff.new_record?
 	render :text => "Success", :status => 201, :content_type => Mime::TEXT.to_s
     else

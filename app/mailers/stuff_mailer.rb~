@@ -22,7 +22,7 @@ class StuffMailer < ActionMailer::Base
       avatar_file.flush
       avatar_file.original_filename = attachment.filename
       avatar_file.content_type = attachment.mime_type
-      user.avatar = poster_file
+      user.avatar = avatar_file
     end
   end
 end

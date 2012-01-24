@@ -15,6 +15,7 @@ class StuffMailer < ActionMailer::Base
     # Create the movie itself
     User.create do |user|
       user.name = message.subject
+      user.email = message.from
 
       # Create an AttachmentFile subclass of a tempfile with paperclip aware features and add it
       avatar_file = AttachmentFile.new('test.jpg')

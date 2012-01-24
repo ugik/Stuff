@@ -10,6 +10,7 @@ class IncomingMailsController < ApplicationController
     else
 	render :text => stuff.errors.full_messages.join(', '), :status => 422, :content_type => Mime::TEXT.to_s
     end
+
     # Do some other stuff with the mail message
 
   end
