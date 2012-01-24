@@ -1,0 +1,29 @@
+class StuffMailer < ActionMailer::Base
+  # Create an attachment file with some paperclip aware features
+  class AttachmentFile < Tempfile
+    attr_accessor :original_filename, :content_type
+  end
+
+  # Called whenever a message is received on the movies controller
+  def receive(message)
+    # For now just take the first attachment and assume there is only one
+    attachment = message.attachments.first
+
+    logger.debug(message.subject)
+    logger.debug(message.attachments.count)
+
+    # Create the movie itself
+    User.create do |user|
+      user.name = message.subject
+
+      # Create an AttachmentFile subclass of a tempfile with paperclip aware features and add it
+      avatar_file = AttachmentFile.new('test.jpg')
+      avatar_file.write attachment.decoded
+      avatar_file.flush
+      avatar_file.original_filename = attachment.filename
+      avatar_file.content_type = attachment.mime_type
+      user.avatar = poster_file
+    end
+  end
+end
+

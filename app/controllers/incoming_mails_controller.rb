@@ -3,14 +3,16 @@ class IncomingMailsController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def create
-    message = Mail.new(params[:message])
+    stuff = StuffMailer.receiver(Mail.new(params[:message]))
 
-    logger.debug(message.subject)
-    logger.debug(message.body.decoded)
 
+     if !stuff.new_record?
+	render :text => "Success", :status => 201, :content_type => Mime::TEXT.to_s
+    else
+	render :text => stuff.errors.full_messages.join(', '), :status => 422, :content_type => Mime::TEXT.to_s
+    end
     # Do some other stuff with the mail message
 
-    render :text => 'success', :status => 200 # a status of 404 would reject the mail
   end
 end
 
