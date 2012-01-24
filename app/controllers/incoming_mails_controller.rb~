@@ -3,7 +3,7 @@ class IncomingMailsController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def create
-    stuff = StuffMailer.receiver(Mail.new(params[:message]))
+    stuff = StuffMailer.receive(Mail.new(params[:message]))
 
 
      if !stuff.new_record?

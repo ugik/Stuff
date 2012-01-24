@@ -18,7 +18,7 @@ class StuffMailer < ActionMailer::Base
 
       # Create an AttachmentFile subclass of a tempfile with paperclip aware features and add it
       avatar_file = AttachmentFile.new('test.jpg')
-      avatar_file.write attachment.decoded
+      avatar_file.write attachment.decoded.force_encoding("utf-8")
       avatar_file.flush
       avatar_file.original_filename = attachment.filename
       avatar_file.content_type = attachment.mime_type
