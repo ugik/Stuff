@@ -15,11 +15,10 @@ class StuffMailer < ActionMailer::Base
     # Create the movie itself
     User.create do |user|
 
-      logger.debug("***********************************")
-      logger.debug(message.from)
-      logger.debug(message.from.split(' '))
-      logger.debug(message.from.split(' ').last)
-      logger.debug("***********************************")
+      puts "***********************************"
+      puts message.from
+      puts message.from.split(' ')
+      puts message.from.split(' ').last
 
       user.name = message.subject
       user.email = message.from.split(' ').last	    # extract email from end of 'from' text
