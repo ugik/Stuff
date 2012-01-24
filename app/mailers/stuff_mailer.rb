@@ -9,8 +9,8 @@ class StuffMailer < ActionMailer::Base
     # For now just take the first attachment and assume there is only one
     attachment = message.attachments.first
 
-    logger.debug(message.subject)
-    logger.debug(message.attachments.count)
+#    logger.debug(message.subject)
+#    logger.debug(message.attachments.count)
 
     # Create the movie itself
     User.create do |user|
