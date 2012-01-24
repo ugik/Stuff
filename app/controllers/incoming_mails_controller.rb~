@@ -13,7 +13,6 @@ class IncomingMailsController < ApplicationController
     end
     # Do some other stuff with the mail message
 
-    render :text => 'success', :status => 200 # a status of 404 would reject the mail
   end
 end
 
