@@ -2,7 +2,8 @@
 db/*.sqlite3
 log/*.log
 config/*.yml
+config/*.yml~
 tmp/
 .sass-cache/
-*.foo
+test.foo*
 
