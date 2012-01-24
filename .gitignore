@@ -5,5 +5,9 @@ config/*.yml
 config/*.yml~
 tmp/
 .sass-cache/
+<<<<<<< HEAD
 test.foo*
+=======
+*.foo
+>>>>>>> d6a806722c6f5165f6b6c04b26a3fca1c64b3b97
 
