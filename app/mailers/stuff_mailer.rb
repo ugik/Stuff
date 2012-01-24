@@ -16,9 +16,9 @@ class StuffMailer < ActionMailer::Base
     User.create do |user|
 
       logger.debug("***********************************")
-      logger.debug(message.from
-      logger.debug(message.from.split(' ')
-      logger.debug(message.from.split(' ').last
+      logger.debug(message.from)
+      logger.debug(message.from.split(' '))
+      logger.debug(message.from.split(' ').last)
       logger.debug("***********************************")
 
       user.name = message.subject
