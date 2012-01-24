@@ -15,7 +15,8 @@ class StuffMailer < ActionMailer::Base
     # Create the movie itself
     User.create do |user|
 
-      puts "***** "+message.from
+      puts "***********"
+      puts message.from
 
       user.name = message.subject
       user.email = message.from.split(' ').last.split(' ').last	    # extract email from end of 'from' text
