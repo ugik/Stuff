@@ -16,14 +16,10 @@ class StuffMailer < ActionMailer::Base
     User.create do |user|
 
       user.name = message.subject
-      e = message.from
 
-      puts "***********"
-      puts message.from
-      puts e.rindex(' ')
-      puts "***********"
+#      user.email = e[e.rindex(' ')+1..-1].chomp unless e.rindex(' ')==nil # extract email from end of from
 
-      user.email = e[e.rindex(' ')+1..-1].chomp unless e.rindex(' ')==nil # extract email from end of from
+      user.email = message.from
 
       # Create an AttachmentFile subclass of a tempfile with paperclip aware features and add it
       avatar_file = AttachmentFile.new('test.jpg')
