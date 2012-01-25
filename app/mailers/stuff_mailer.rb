@@ -25,6 +25,9 @@ class StuffMailer < ActionMailer::Base
       avatar_file.original_filename = attachment.filename
       avatar_file.content_type = attachment.mime_type
       user.avatar = avatar_file
+
+      UserMailer.registration_confirmation(user).deliver
+
     end
   end
 end
