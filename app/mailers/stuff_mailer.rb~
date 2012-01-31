@@ -50,7 +50,7 @@ class StuffMailer < ActionMailer::Base
 
       user.name = @subject
       user.email = @email
-      user.avatar = avatar_file
+      user.avatar = avatar_file unless avatar_file.nil?
 
 #      UserMailer.registration_confirmation(user).deliver
 
