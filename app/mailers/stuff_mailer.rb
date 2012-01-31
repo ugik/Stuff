@@ -12,6 +12,10 @@ class StuffMailer < ActionMailer::Base
 #    logger.debug(message.subject)
 #    logger.debug(message.attachments.count)
 
+puts "**************************"
+puts message.subject
+puts message.from[0].to_s
+
     # Create the movie itself
     User.create do |user|
 
@@ -26,7 +30,7 @@ class StuffMailer < ActionMailer::Base
       avatar_file.content_type = attachment.mime_type
       user.avatar = avatar_file
 
-      UserMailer.registration_confirmation(user).deliver
+#      UserMailer.registration_confirmation(user).deliver
 
     end
   end
