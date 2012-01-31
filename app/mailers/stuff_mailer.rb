@@ -16,6 +16,11 @@ class StuffMailer < ActionMailer::Base
     puts "mail was from phone #{mail.number}"
     file = mail.default_text
     puts "mail had some text: #{file.inspect}" unless file.nil?
+    puts "mail is from a mobile phone #{mail.is_mobile?}"
+    file = mail.default_media
+    puts "mail had a media: #{file.inspect}" unless file.nil?
+       mail.media['image/jpeg'].each {|f| puts "#{f}"}
+       mail.media['text/plain'].each {|f| puts "#{f}"}
 
     puts message.subject
     puts message.from[0].to_s
@@ -37,6 +42,9 @@ class StuffMailer < ActionMailer::Base
 #      UserMailer.registration_confirmation(user).deliver
 
     end
+
+    puts "**************************"
+
   end
 end
 
