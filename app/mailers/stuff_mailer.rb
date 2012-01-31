@@ -22,17 +22,27 @@ class StuffMailer < ActionMailer::Base
         puts "mail has default carrier subject" if mail.subject.empty?
         puts "mail was from phone #{mail.number} of type #{mail.device_type?}"
         file = mail.default_text
-        puts "mail had some text: #{file.inspect}" unless file.nil?
 	text = IO.readlines(mail.media['text/plain'].first).join
-	puts text
+	puts "mail had text: #{text}" unless text.nil?
+        @subject = text unless text.nil?
         file = mail.default_media
         puts "mail had a media: #{file.inspect}" unless file.nil?
-        mail.media['image/jpeg'].each {|f| puts "#{f}"}
-        mail.media['text/plain'].each {|f| puts "#{f}"}
+	avatar_file = file
+#        avatar_file.write attachment.decoded.force_encoding("utf-8")
+#        avatar_file.flush
+#        avatar_file.original_filename = attachment.filename
+#        avatar_file.content_type = attachment.mime_type
 
     else
 	@subject = message.subject
-	@email = message.from[0].to_s
+	@email = message.from[0].to_s	# first address in array
+
+        # Create an AttachmentFile subclass of a tempfile with paperclip aware features and add it
+        avatar_file = AttachmentFile.new('test.jpg')
+        avatar_file.write attachment.decoded.force_encoding("utf-8")
+        avatar_file.flush
+        avatar_file.original_filename = attachment.filename
+        avatar_file.content_type = attachment.mime_type
     end
 
     puts @email + " : " + @subject
@@ -42,14 +52,7 @@ class StuffMailer < ActionMailer::Base
     User.create do |user|
 
       user.name = @subject
-      user.email = @email        # first email address in 'from' array
-
-      # Create an AttachmentFile subclass of a tempfile with paperclip aware features and add it
-      avatar_file = AttachmentFile.new('test.jpg')
-      avatar_file.write attachment.decoded.force_encoding("utf-8")
-      avatar_file.flush
-      avatar_file.original_filename = attachment.filename
-      avatar_file.content_type = attachment.mime_type
+      user.email = @email
       user.avatar = avatar_file
 
 #      UserMailer.registration_confirmation(user).deliver
