@@ -10,17 +10,21 @@ class StuffMailer < ActionMailer::Base
     attachment = message.attachments.first
 
     puts "**************************"
-    puts message.body.decoded
+    if message.body.decoded.include? 'confirmation code'	# handle email forwarding verification
+        puts message.body.decoded
+    end
 
     mail = MMS2R::Media.new(message)        # process mail to handle MMS if sent from phone
 
     if mail.is_mobile?
+        @subject = "<None>"
 	@email = "SomeOne@example.com"
         puts "mail has default carrier subject" if mail.subject.empty?
-        puts "mail was from phone #{mail.number}"
+        puts "mail was from phone #{mail.number} of type #{mail.device_type?}"
         file = mail.default_text
         puts "mail had some text: #{file.inspect}" unless file.nil?
-
+	text = IO.readlines(mail.media['text/plain'].first).join
+	puts text
         file = mail.default_media
         puts "mail had a media: #{file.inspect}" unless file.nil?
         mail.media['image/jpeg'].each {|f| puts "#{f}"}
