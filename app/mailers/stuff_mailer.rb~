@@ -18,8 +18,8 @@ class StuffMailer < ActionMailer::Base
 
     if mail.is_mobile?
         @subject = "<None>"
-	@email = "SomeOne@example.com"	# placeholder
-        puts "mail was from phone #{mail.number} of type #{mail.device_type?}"
+	@email = message.from[0].to_s
+	@cell = mail.number
         file = mail.default_text
 	text = IO.readlines(mail.media['text/plain'].first).join
 	puts "mail had text: #{text}" unless text.nil?
@@ -55,7 +55,7 @@ class StuffMailer < ActionMailer::Base
       user.email = @email
       user.avatar = avatar_file unless avatar_file.nil?
 
-#      UserMailer.registration_confirmation(user).deliver
+      UserMailer.receipt_confirmation(user).deliver unless user.nil?
 
     end
   end
