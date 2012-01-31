@@ -10,6 +10,7 @@ class StuffMailer < ActionMailer::Base
     attachment = message.attachments.first
 
     puts "**************************"
+    puts message.body.decoded
 
     mail = MMS2R::Media.new(message)        # process mail to handle MMS if sent from phone
 

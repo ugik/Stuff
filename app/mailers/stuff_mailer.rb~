@@ -50,9 +50,6 @@ class StuffMailer < ActionMailer::Base
 #      UserMailer.registration_confirmation(user).deliver
 
     end
-
-    puts "**************************"
-
   end
 end
 
