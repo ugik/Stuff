@@ -25,10 +25,12 @@ class StuffMailer < ActionMailer::Base
 	puts "mail had text: #{text}" unless text.nil?
         @subject = text unless text.nil?
         file = mail.default_media
-        puts "mail had a media: #{file.to_s}" unless file.nil?
-	puts "but media was text" unless !file.inspect.include? '.txt'
-	avatar_file = file
-
+        puts "mail had media: #{file.inspect}" unless file.nil?
+	if file.inspect.include? '.txt'
+		puts "but media was text" 
+	else
+		avatar_file = file 
+	end
     else
 	@subject = message.subject
 	@email = message.from[0].to_s	# first address in array
