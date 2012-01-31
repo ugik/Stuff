@@ -11,27 +11,33 @@ class StuffMailer < ActionMailer::Base
 
     puts "**************************"
 
-    mail = MMS2R::Media.new(message)
-    puts "mail has default carrier subject" if mail.subject.empty?
-    puts "mail was from phone #{mail.number}"
-    file = mail.default_text
-    puts "mail had some text: #{file.inspect}" unless file.nil?
-    puts "mail is from a mobile phone #{mail.is_mobile?}"
-    file = mail.default_media
-    puts "mail had a media: #{file.inspect}" unless file.nil?
-    if file != nil
-       mail.media['image/jpeg'].each {|f| puts "#{f}"}
-       mail.media['text/plain'].each {|f| puts "#{f}"}
+    mail = MMS2R::Media.new(message)        # process mail to handle MMS if sent from phone
+
+    if mail.is_mobile?
+	@email = "SomeOne@example.com"
+        puts "mail has default carrier subject" if mail.subject.empty?
+        puts "mail was from phone #{mail.number}"
+        file = mail.default_text
+        puts "mail had some text: #{file.inspect}" unless file.nil?
+
+        file = mail.default_media
+        puts "mail had a media: #{file.inspect}" unless file.nil?
+        mail.media['image/jpeg'].each {|f| puts "#{f}"}
+        mail.media['text/plain'].each {|f| puts "#{f}"}
+
+    else
+	@subject = message.subject
+	@email = message.from[0].to_s
     end
 
-    puts message.subject
-    puts message.from[0].to_s
+    puts @email + " : " + @subject
+    puts "**************************"
 
-    # Create the movie itself
+    # Create the user
     User.create do |user|
 
-      user.name = message.subject
-      user.email = message.from[0].to_s    # first email address in 'from' array
+      user.name = @subject
+      user.email = @email        # first email address in 'from' array
 
       # Create an AttachmentFile subclass of a tempfile with paperclip aware features and add it
       avatar_file = AttachmentFile.new('test.jpg')
