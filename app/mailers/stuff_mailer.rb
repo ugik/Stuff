@@ -9,12 +9,16 @@ class StuffMailer < ActionMailer::Base
     # For now just take the first attachment and assume there is only one
     attachment = message.attachments.first
 
-#    logger.debug(message.subject)
-#    logger.debug(message.attachments.count)
+    puts "**************************"
 
-puts "**************************"
-puts message.subject
-puts message.from[0].to_s
+    mail = MMS2R::Media.new(message)
+    puts "mail has default carrier subject" if mail.subject.empty?
+    puts "mail was from phone #{mail.number}"
+    file = mail.default_text
+    puts "mail had some text: #{file.inspect}" unless file.nil?
+
+    puts message.subject
+    puts message.from[0].to_s
 
     # Create the movie itself
     User.create do |user|
