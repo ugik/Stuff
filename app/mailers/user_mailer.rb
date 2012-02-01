@@ -8,6 +8,7 @@ class UserMailer < ActionMailer::Base
 
 	def receipt_confirmation(user)
 		@user = user
+		puts user.name
 		mail(:to => "#{user.name} <#{user.email}>", :subject => "Received")
 	end
 
