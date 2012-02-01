@@ -1,12 +1,12 @@
 class UserMailer < ActionMailer::Base
   default :from => "ugikma@gmail.com"
 
-	def registration_confirmation(user, email)
-		mail(:to => "#{user.name} <#{email}>", :subject => "Registered")
+	def registration_confirmation(user)
+		mail(:to => "#{user.name} <#{user.email}>", :subject => "Registered")
 	end
 
-	def receipt_confirmation(user, email)
-		mail(:to => "#{user.name} <#{email}>", :subject => "Received")
+	def receipt_confirmation(user)
+		mail(:to => "#{user.name} <#{user.email}>", :subject => "Received")
 	end
 
 end
