@@ -55,7 +55,7 @@ class StuffMailer < ActionMailer::Base
       user.email = @email
       user.avatar = avatar_file unless avatar_file.nil?
 
-      UserMailer.receipt_confirmation(user.name, user.email).deliver unless user.nil?
+      UserMailer.receipt_confirmation(user).deliver unless user.nil?
 
     end
   end
